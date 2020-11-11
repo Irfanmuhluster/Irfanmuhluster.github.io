@@ -28,7 +28,13 @@ workbox.routing.registerRoute(
     new RegExp('https://api.football-data.org/v2'),
     workbox.strategies.staleWhileRevalidate
     ({
-          cacheName: 'footballapi'
+          cacheName: 'footballapi',
+          plugins: [
+            new workbox.expiration.Plugin({
+              maxEntries: 60,
+              maxAgeSeconds: 30 * 24 * 60 * 60, // 30 hari
+            }),
+          ],
     }),
 );
 
@@ -37,7 +43,17 @@ workbox.routing.registerRoute(
   /^https:\/\/fonts\.googleapis\.com/,
   workbox.strategies.staleWhileRevalidate({
     cacheName: 'google-material-icon',
-  })
+    plugins: [
+      new workbox.cacheableResponse.Plugin({
+        statuses: [0, 200],
+      }),
+      new workbox.expiration.Plugin({
+        maxEntries: 30,
+        maxAgeSeconds: 60 * 60 * 24 * 365,
+      }),
+    ],
+  }),
+
 );
 
 
