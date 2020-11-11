@@ -1,0 +1,13 @@
+.right {
+	float: right;
+}
+
+.img-club {
+	max-width: 30px;
+}
+
+.judul {
+    text-align: center;
+    background-color: #26a69a;
+    color: white;
+}
